@@ -1,36 +1,31 @@
-import React from "react";
-import UserCard from "./UserCard";
+import React , {useEffect, useState} from "react";
+//import UserCard from "./UserCard";
+//import { getUsers } from "./Services";
+import PostCard from "./PostCard";
+import postsData from "./postsData";
+
 
 function Exercise() {
-
   return (
-    <>
-      <div className="min-h-screen bg-gray-100 p-6">
-        <h1 className="text-3xl font-bold text-center mb-6 text-blue-700">
-          User Cards
+    <div className="min-h-screen bg-gray-50 p-8">
+      <header className="mb-12 text-center">
+        <h1 className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 mb-2">
+          Post Cards
         </h1>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-          <UserCard 
-          name="Dhilla"
-          email="dhilla@gmail.com"
-          city="Semarang" 
-          address="Jl. Mawar No. 123"
+      </header>
+
+      <main className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+        {postsData.map((post) => (
+          <PostCard 
+            key={post.id} 
+            id={post.id} 
+            userId={post.userId} 
+            title={post.title} 
+            body={post.body} 
           />
-          <UserCard
-           name="John Doe" 
-           email="john@gmail.com"
-           city="Semarang" 
-           address="Jl. Melati No. 456"
-           />
-          <UserCard 
-          name="Jane Smith" 
-          email="jane@gmail.com" 
-          city="Jakarta"
-          address="Jl. Anggrek No. 789"
-          />
-        </div>
-      </div>
-    </>
+        ))}
+      </main>
+    </div>
   );
 }
 
