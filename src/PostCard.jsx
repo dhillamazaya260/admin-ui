@@ -17,7 +17,8 @@ const PostCard = (props) => {
 
       <div className="mt-6">
        <button 
-      className={`w-full py-3 rounded-md font-semibold text-white transition-all duration-300 ${clicked ? "bg-special-red2" : "bg-gray-01"} hover:brightness-150 group-hover:brightness-150 active:scale-95 shadow-md`}
+      className={`w-full py-3 rounded-md font-semibold text-white transition-all duration-300 ${clicked ? "bg-special-red2" : "bg-gray-01"} group-hover:brightness-150 active:scale-95 shadow-md`}
+      onClick={() => setClicked(true)}
       >
         {clicked ? "Tombol sudah diklik" : "Silakan Klik"}
       </button>
