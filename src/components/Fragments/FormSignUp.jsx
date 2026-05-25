@@ -8,7 +8,7 @@ function FormSignUp() {
     <>
       {/* judul */}
       <div className="text-center mb-6">
-        <h2 className="text-sm font-bold text-gray-01">Create an account</h2>
+        <h2 className="text-xl font-bold text-gray-01">Create an Account</h2>
       </div>
 
       {/* form start */}
@@ -43,14 +43,14 @@ function FormSignUp() {
           </div>
 
           {/* terms */}
-          <div className="mb-5 text-xs text-gray-03">
-            By continuing, you agree to our{" "}
+          <div className="mb-5 text-xs text-center text-gray-03">
+            By continuing, you to agree to our{" "}
             <a href="#" className="text-primary">
               terms of service.
             </a>
           </div>
 
-          <Button>Sign up</Button>
+          <Button>Sign Up</Button>
         </form>
       </div>
       {/* form end */}
@@ -85,14 +85,11 @@ function FormSignUp() {
       {/* sign up with google end */}
 
       {/* link start */}
-      <div className="flex justify-center text-xs text-gray-03">
-        Already have an account?{" "}
-        <div className="flex justify-center text-sm text-gray-01">
-  Already have an account?&nbsp;
-  <Link to="/login" className="text-primary font-bold">
-    Sign In Here
-  </Link>
-</div>
+      <div className="flex justify-center text-sm text-gray-03">
+        Already have an account?&nbsp;
+        <Link to="/login" className="text-primary font-bold">
+          Sign In Here
+        </Link>
       </div>
       {/* link end */}
     </>
