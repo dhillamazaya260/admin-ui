@@ -2,9 +2,10 @@ import React from "react";
 
 function Logo() {
   return (
-    <div className="flex justify-center font-poppins tracking-wide text-2xl mb-8">
-      <span className="font-bold">FINE</span>bank
-      <span className="font-bold">.IO</span>
+    <div className="flex justify-center text-3xl font-poppins mb-8">
+      <span className="font-bold text-primary">FINE</span>
+      <span className="font-normal text-gray-01">bank</span>
+      <span className="font-bold text-gray-01">.IO</span>
     </div>
   );
 }

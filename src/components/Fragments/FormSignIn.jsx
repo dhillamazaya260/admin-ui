@@ -7,9 +7,9 @@ function FormSignIn() {
   return (
     <>
       {/* form start */}
-      <div className="mt-16">
+      <div className="mt-6">
         <form action="">
-          <div className="mb-6">
+          <div className="mb-5">
             <LabeledInput
               label="Email Address"
               id="email"
@@ -18,7 +18,7 @@ function FormSignIn() {
               name="email"
             />
           </div>
-          <div className="mb-6">
+          <div className="mb-4">
             <LabeledInput
               label="Password"
               id="password"
@@ -27,7 +27,7 @@ function FormSignIn() {
               name="password"
             />
           </div>
-          <div className="mb-3">
+          <div className="mb-5">
             <CheckBox
               label="Keep me signed in"
               id="status"
@@ -41,21 +41,20 @@ function FormSignIn() {
       {/* form end */}
 
       {/* teks start */}
-      <div className="my-9 px-7 flex flex-col justify-center items-center text-xs text-gray-03">
-        <div className="border border-gray-05 w-full"></div>
-        <div className="px-2 bg-special-mainBg absolute"> or sign in with</div>
+      <div className="my-6 flex items-center justify-center gap-3 text-xs text-gray-03">
+        <div className="border-t border-gray-04 flex-1"></div>
+        <span>or sign in with</span>
+        <div className="border-t border-gray-04 flex-1"></div>
       </div>
       {/* teks end */}
 
-      {/* sign in with google start */}
-      <div className="mb-8">
+      {/* button google */}
+      <div className="mb-6">
         <Button type="button" variant="secondary">
-          <span className="flex items-center justify-center">
+          <span className="flex items-center justify-center gap-2">
             <svg
-              className="h-6 w-6 mr-2"
+              className="h-5 w-5"
               xmlns="http://www.w3.org/2000/svg"
-              width="800"
-              height="800"
               viewBox="-0.5 0 48 48"
             >
               <path d="M9.82727273,24 C9.82727273,22.4757333 10.0804318,21.0144 10.5322727,19.6437333 L2.62345455,13.6042667 C1.08206818,16.7338667 0.213636364,20.2602667 0.213636364,24 C0.213636364,27.7365333 1.081,31.2608 2.62025,34.3882667 L10.5247955,28.3370667 C10.0772273,26.9728 9.82727273,25.5168 9.82727273,24" fill="#FBBC05" />
@@ -67,13 +66,13 @@ function FormSignIn() {
           </span>
         </Button>
       </div>
-      {/* sign in with google end */}
 
-      {/* link start */}
+      {/* link */}
       <div className="flex justify-center">
-        <a className="text-primary text-sm font-bold">Create an account</a>
+        <a href="#" className="text-primary text-sm font-bold">
+          Create an account
+        </a>
       </div>
-      {/* link end */}
     </>
   );
 }

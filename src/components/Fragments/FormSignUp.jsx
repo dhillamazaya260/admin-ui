@@ -1,17 +1,17 @@
 import React from "react";
 import LabeledInput from "../Elements/LabeledInput";
-import CheckBox from "../Elements/CheckBox";
 import Button from "../Elements/Button";
 
 function FormSignUp() {
   return (
     <>
+      {/* judul */}
       <div className="text-center mb-6">
-        <h2 className="text-lg font-bold">Create an account</h2>
+        <h2 className="text-sm font-bold text-gray-01">Create an account</h2>
       </div>
 
       {/* form start */}
-      <div>
+      <div className="mt-4">
         <form action="">
           <div className="mb-6">
             <LabeledInput
@@ -31,7 +31,7 @@ function FormSignUp() {
               name="email"
             />
           </div>
-          <div className="mb-6">
+          <div className="mb-4">
             <LabeledInput
               label="Password"
               id="password"
@@ -40,10 +40,15 @@ function FormSignUp() {
               name="password"
             />
           </div>
-          <div className="mb-6 text-xs text-gray-03">
+
+          {/* terms */}
+          <div className="mb-5 text-xs text-gray-03">
             By continuing, you agree to our{" "}
-            <a className="text-primary">terms of service.</a>
+            <a href="#" className="text-primary">
+              terms of service.
+            </a>
           </div>
+
           <Button>Sign up</Button>
         </form>
       </div>
@@ -52,7 +57,7 @@ function FormSignUp() {
       {/* teks start */}
       <div className="my-9 px-7 flex flex-col justify-center items-center text-xs text-gray-03">
         <div className="border border-gray-05 w-full"></div>
-        <div className="px-2 bg-special-mainBg absolute"> or sign up with</div>
+        <div className="px-2 bg-special-mainBg absolute">or sign up with</div>
       </div>
       {/* teks end */}
 
@@ -79,9 +84,11 @@ function FormSignUp() {
       {/* sign up with google end */}
 
       {/* link start */}
-      <div className="flex justify-center text-sm">
+      <div className="flex justify-center text-xs text-gray-03">
         Already have an account?{" "}
-        <a className="text-primary font-bold ml-1">Sign in here</a>
+        <a href="#" className="text-primary font-bold ml-1">
+          Sign in here
+        </a>
       </div>
       {/* link end */}
     </>

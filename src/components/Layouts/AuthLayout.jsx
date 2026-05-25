@@ -5,16 +5,12 @@ function AuthLayout(props) {
   const { children } = props;
 
   return (
-    <>
-      <main className="min-h-screen bg-special-mainBg flex justify-center items-center">
-        {/* container start */}
-        <div className="w-full max-w-sm">
-          <Logo />
-          {children}
-        </div>
-        {/* container end */}
-      </main>
-    </>
+    <main className="min-h-screen bg-special-mainBg flex justify-center items-center font-poppins">
+      <div className="bg-special-mainBg w-full max-w-sm px-8 py-10">
+        <Logo />
+        {children}
+      </div>
+    </main>
   );
 }
 
