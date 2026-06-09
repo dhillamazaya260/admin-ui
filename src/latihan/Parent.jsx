@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import Child from "./Child";
+import { CounterContext } from "../context/counterContext";
 
 function Parent() {
-  const [count, setCount] = useState(0);
+  const { count, setCount } = useContext(CounterContext);
   return (
     <div className="text-2xl">
       <p>Nilai count di Parent: {count}</p>
-      <Child count={count} />
+      <Child />
       <button
         className="p-2 bg-gray-300 rounded-md"
         onClick={() => setCount(count + 1)}

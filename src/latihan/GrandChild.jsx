@@ -1,11 +1,12 @@
 import React from "react";
+import GreatGrandChild from "./GreatGrandChild";
 
-function GreatGrandChild(props) {
+function GrandChild() {
   return (
     <div className="ps-10">
-      <p>Nilai count di GreatGrandChild dari GrandChild: {props.count}</p>
+      <GreatGrandChild />
     </div>
   );
 }
 
-export default GreatGrandChild;
+export default GrandChild;
