@@ -1,15 +1,23 @@
 import React, { useState } from "react";
+import axios from "axios";   // ← tambahkan ini
 
 const Form = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(email);
-    console.log(password);
-    console.log("-");
-  };
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    const response = await axios.post(
+      "https://jwt-auth-eight-neon.vercel.app/login",
+      { email, password },
+    );
+    console.log(response.data);
+    localStorage.setItem("token", response.data.refreshToken);
+  } catch (error) {
+    console.error(error);
+  }
+};
 
   return (
     <div className="p-4">
