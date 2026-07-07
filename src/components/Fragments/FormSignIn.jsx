@@ -1,43 +1,98 @@
 import React from "react";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
 import LabeledInput from "../Elements/LabeledInput";
 import CheckBox from "../Elements/CheckBox";
 import Button from "../Elements/Button";
 import { Link } from "react-router-dom";
 
-function FormSignIn() {
+const SignInSchema = Yup.object().shape({
+  email: Yup.string().email("Email tidak valid").required("Email wajib diisi"),
+  password: Yup.string().required("Password wajib diisi"),
+});
+
+function FormSignIn({ onSubmit }) {
   return (
     <>
       {/* form start */}
       <div className="mt-6">
-        <form action="">
-          <div className="mb-5">
-            <LabeledInput
-              label="Email Address"
-              id="email"
-              type="email"
-              placeholder="hello@example.com"
-              name="email"
-            />
-          </div>
-          <div className="mb-4">
-            <LabeledInput
-              label="Password"
-              id="password"
-              type="password"
-              placeholder="••••••••••••••"
-              name="password"
-            />
-          </div>
-          <div className="mb-5">
-            <CheckBox
-              label="Keep me signed in"
-              id="status"
-              type="checkbox"
-              name="status"
-            />
-          </div>
-          <Button>Login</Button>
-        </form>
+        <Formik
+          initialValues={{
+            email: "",
+            password: "",
+            status: false,
+          }}
+          validationSchema={SignInSchema}
+          onSubmit={async (values, { setSubmitting }) => {
+            try {
+              await onSubmit(values.email, values.password);
+            } finally {
+              setSubmitting(false);
+            }
+          }}
+        >
+          {({ isSubmitting }) => (
+            <Form>
+              {/* EMAIL */}
+              <div className="mb-5">
+                <Field name="email">
+                  {({ field }) => (
+                    <LabeledInput
+                      {...field}
+                      id="email"
+                      type="email"
+                      label="Email Address"
+                      placeholder="hello@example.com"
+                    />
+                  )}
+                </Field>
+                <ErrorMessage
+                  name="email"
+                  component="p"
+                  className="text-red-500 text-xs mt-1"
+                />
+              </div>
+
+              {/* PASSWORD */}
+              <div className="mb-4">
+                <Field name="password">
+                  {({ field }) => (
+                    <LabeledInput
+                      {...field}
+                      id="password"
+                      type="password"
+                      label="Password"
+                      placeholder="••••••••••••••"
+                    />
+                  )}
+                </Field>
+                <ErrorMessage
+                  name="password"
+                  component="p"
+                  className="text-red-500 text-xs mt-1"
+                />
+              </div>
+
+              {/* CHECKBOX */}
+              <div className="mb-5">
+                <Field name="status">
+                  {({ field }) => (
+                    <CheckBox
+                      {...field}
+                      id="status"
+                      type="checkbox"
+                      checked={field.value}
+                      label="Keep me signed in"
+                    />
+                  )}
+                </Field>
+              </div>
+
+              {/* BUTTON */}
+              <Button>{isSubmitting ? "Loading..." : "Login"}</Button>
+            </Form>
+          )}
+        </Formik>
       </div>
       {/* form end */}
 
@@ -71,10 +126,10 @@ function FormSignIn() {
       {/* link */}
       <div className="flex justify-center">
         <div className="flex justify-center">
-  <Link to="/register" className="text-primary text-sm font-bold">
-    Create an account
-  </Link>
-</div>
+          <Link to="/register" className="text-primary text-sm font-bold">
+            Create an account
+          </Link>
+        </div>
       </div>
     </>
   );

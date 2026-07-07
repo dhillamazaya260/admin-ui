@@ -1,10 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import Form from "./latihan/Form.jsx";
+import App from "./App.jsx";
+import { ThemeContextProvider } from "./context/themeContext";
+import { AuthContextProvider } from "./context/authContext";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <Form />
+    <ThemeContextProvider>
+      <AuthContextProvider>
+        <App />
+      </AuthContextProvider>
+    </ThemeContextProvider>
   </React.StrictMode>
 );
