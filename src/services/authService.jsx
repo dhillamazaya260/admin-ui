@@ -9,7 +9,7 @@ export const loginService = async (email, password) => {
   } catch (error) {
     throw {
       status: error.response?.status,
-      msg: error.response?.data?.message || "Terjadi kesalahan, coba lagi",
+      msg: error.response?.data?.msg || "Terjadi kesalahan, coba lagi",
     };
   }
 };
