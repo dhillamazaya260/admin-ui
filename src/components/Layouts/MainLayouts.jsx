@@ -5,6 +5,8 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import Icon from "../Elements/Icon";
 import { NavLink } from "react-router-dom";
 import { ThemeContext } from "../../context/themeContext";
+import { AuthContext } from "../../context/authContext";
+import { logoutService } from "../../services/authService";
 
 function MainLayout(props) {
   const { children } = props;
@@ -22,22 +24,41 @@ function MainLayout(props) {
   const menu = [
     { id: 1, name: "Overview", icon: <Icon.Overview />, link: "/" },
     { id: 2, name: "Balances", icon: <Icon.Balance />, link: "/balance" },
-    { id: 3, name: "Transaction", icon: <Icon.Transaction />, link: "/transaction" },
+    {
+      id: 3,
+      name: "Transaction",
+      icon: <Icon.Transaction />,
+      link: "/transaction",
+    },
     { id: 4, name: "Bills", icon: <Icon.Bill />, link: "/bill" },
     { id: 5, name: "Expenses", icon: <Icon.Expense />, link: "/expense" },
     { id: 6, name: "Goals", icon: <Icon.Goal />, link: "/goal" },
     { id: 7, name: "Settings", icon: <Icon.Setting />, link: "/setting" },
   ];
 
+  const { user, logout } = useContext(AuthContext);
+
+ 	const handleLogout = async () => {
+    try {
+      await logoutService();
+      logout(); 
+    } catch (err) {
+      console.error(err);
+      if (err.status === 401) {
+        logout();
+      }
+    }
+  };
+
   return (
     <>
       <div className={`flex min-h-screen ${theme.name}`}>
-        <aside className="bg-gray-900 w-28 sm:w-64 text-gray-300 flex flex-col justify-between px-5 py-10">
+        <aside className="bg-defaultBlack w-28 sm:w-64 text-special-bg2 flex flex-col justify-between px-7 py-12">
           <div>
-            <div className="mb-8 hidden sm:block">
+            <div className="mb-10">
               <Logo variant="secondary" />
             </div>
-            <nav className="flex flex-col gap-1 mt-4">
+            <nav>
               {menu.map((item) => (
                 <NavLink
                   key={item.id}
@@ -56,7 +77,6 @@ function MainLayout(props) {
               ))}
             </nav>
           </div>
-
           <div>
             <div>
               Themes
@@ -70,42 +90,44 @@ function MainLayout(props) {
                 ))}
               </div>
             </div>
-            <NavLink to="/login">
-              <div className="flex items-center bg-gray-700 text-white px-4 py-3 rounded-md cursor-pointer">
+            <div onClick={handleLogout} className="cursor-pointer">
+              <div className="flex bg-special-bg3 text-white px-4 py-3 rounded-md">
                 <div className="mx-auto sm:mx-0 text-primary">
                   <Icon.Logout />
                 </div>
                 <div className="ms-3 hidden sm:block">Logout</div>
               </div>
-            </NavLink>
-            <div className="border-t border-gray-600 my-6"></div>
-            <div className="flex justify-between items-center gap-2">
-              <div className="text-gray-300 flex-shrink-0">Avatar</div>
-              <div className="hidden sm:block text-sm">
-                <div className="font-semibold text-white">Username</div>
-                <div className="text-gray-400 text-xs">View Profile</div>
+            </div>
+            <div className="border my-10 border-b-special-bg"></div>
+            <div className="flex justify-between items-center">
+              <div>Avatar</div>
+              <div className="hidden sm:block">
+                <div>{user?.name}</div>
+                <div>View Profile</div>
               </div>
               <div className="hidden sm:block">
-                <Icon.Detail size={18} />
+                <Icon.Detail size={15} />
               </div>
             </div>
           </div>
         </aside>
-
-        <div className="bg-gray-100 flex-1 flex flex-col">
-          <header className="border-b border-gray-200 px-6 py-5 flex justify-between items-center bg-white">
-            <div className="flex items-center gap-4">
-              <div className="font-bold text-2xl text-gray-800">Username</div>
-              <div className="text-gray-400 text-sm hidden sm:block">May 19, 2023</div>
+        <div className="bg-special-mainBg flex-1 flex flex-col">
+          <div className="border border-b border-gray-05 px-6 py-4 flex justify-between items-center">
+            <div className="flex items-center">
+              <div className="font-bold text-2xl me-6">{user?.name}</div>
+              <div className="text-gray-03 flex">
+                <Icon.ChevronRight size={20} />
+                <span>May 19, 2023</span>
+              </div>
             </div>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center">
               <div className="me-10">
                 <NotificationsIcon className="text-primary scale-110" />
               </div>
               <Input backgroundColor="bg-white" border="border-white" />
             </div>
-          </header>
-          <main className="flex-1 px-6 py-4">{children}</main>
+          </div>
+          <div className="flex-1 px-6 py-4">{children}</div>
         </div>
       </div>
     </>

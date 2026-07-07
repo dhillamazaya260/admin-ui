@@ -2,17 +2,23 @@ import React from "react";
 import Card from "../Elements/Card";
 import Icon from "../Elements/Icon";
 import CompositionExample from "../Elements/CompositionExample";
-import CircularProgress from "@mui/material/CircularProgress";
+import CircularProgress from '@mui/material/CircularProgress';
 
 function CardGoal(props) {
-  const { data } = props;
-  const chartValue = (data.present_amount / data.target_amount) * 100;
+  const { data = {}, isLoading = false } = props;
+
+  const chartValue =
+    data.present_amount && data.target_amount
+      ? (data.present_amount / data.target_amount) * 100
+      : 0;
 
   const chartData = (
     <div className="p-2">
       <div className="flex justify-between items-center">
         <div className="flex">
-          <span className="text-2xl font-bold me-4">${data.target_amount}</span>
+          <span className="text-2xl font-bold me-4">
+            ${data.target_amount}
+          </span>
           <div className="p-2 bg-gray-05 text-gray-01 rounded-md box-border">
             <Icon.Edit size={16} />
           </div>
@@ -26,14 +32,18 @@ function CardGoal(props) {
             <Icon.Award />
             <div className="ms-2">
               <div>Target Achieved</div>
-              <div className="font-bold text-xl text-black">${data.present_amount}</div>
+              <div className="font-bold text-xl text-black">
+                ${data.present_amount}
+              </div>
             </div>
           </div>
           <div className="flex text-gray-01">
             <Icon.Target />
             <div className="ms-2">
               <div>This Month Target</div>
-              <div className="font-bold text-xl text-black">${data.target_amount}</div>
+              <div className="font-bold text-xl text-black">
+                ${data.target_amount}
+              </div>
             </div>
           </div>
         </div>
@@ -55,10 +65,14 @@ function CardGoal(props) {
       <Card
         title="Goals"
         desc={
-          Object.keys(data).length === 0 ? (
+          isLoading ? (
             <div className="flex flex-col justify-center items-center h-full text-primary">
               <CircularProgress color="inherit" size={50} enableTrackSlot />
               Loading Data
+            </div>
+          ) : Object.keys(data).length === 0 ? (
+            <div className="flex flex-col justify-center items-center h-full text-gray-03 text-sm">
+              Belum ada data goals
             </div>
           ) : (
             chartData

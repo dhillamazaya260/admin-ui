@@ -9,7 +9,12 @@ function AppSnackbar({ open, message, severity = "success", onClose }) {
       onClose={onClose}
       anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
     >
-      <MuiAlert elevation={6} variant="filled" severity={severity} onClose={onClose}>
+      <MuiAlert
+        elevation={6}
+        variant="filled"
+        severity={severity}
+        onClose={onClose}
+      >
         {message}
       </MuiAlert>
     </Snackbar>

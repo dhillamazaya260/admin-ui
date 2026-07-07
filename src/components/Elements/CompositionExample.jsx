@@ -10,7 +10,11 @@ import { ThemeContext } from "../../context/themeContext";
 function GaugePointer(props) {
   const { color } = props;
   const { valueAngle, outerRadius, cx, cy } = useGaugeState();
-  if (valueAngle === null) return null;
+
+  if (valueAngle === null) {
+    return null;
+  }
+
   const target = {
     x: cx + outerRadius * Math.sin(valueAngle),
     y: cy - outerRadius * Math.cos(valueAngle),

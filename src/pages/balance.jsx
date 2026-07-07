@@ -1,7 +1,7 @@
 import React from "react";
-import MainLayout from "../components/Layouts/MainLayout";
+import MainLayout from "../components/Layouts/MainLayouts";
 
-function Balance() {
+function balance() {
   return (
     <>
       <MainLayout>Test Balance Page</MainLayout>
@@ -9,4 +9,4 @@ function Balance() {
   );
 }
 
-export default Balance;
+export default balance;

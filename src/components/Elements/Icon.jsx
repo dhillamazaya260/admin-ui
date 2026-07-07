@@ -55,12 +55,12 @@ const Icon = {
   ArrowRight: createIcon(ArrowRightSVG),
   ArrowDown: createIcon(ArrowDownSVG),
   ArrowUp: createIcon(ArrowUpSVG),
-  ArrowUpRight: createIcon(ArrowUpRightSVG),
   Edit: createIcon(EditSVG),
   Mastercard: createIcon(MastercardSVG),
   Visa: createIcon(VisaSVG),
   Target: createIcon(TargetSVG),
   Award: createIcon(AwardSVG),
+  ArrowUpRight: createIcon(ArrowUpRightSVG),
 };
 
 export default Icon;

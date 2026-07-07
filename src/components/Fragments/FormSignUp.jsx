@@ -1,130 +1,71 @@
 import React from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
 import LabeledInput from "../Elements/LabeledInput";
 import Button from "../Elements/Button";
 import { Link } from "react-router-dom";
 
-const SignUpSchema = Yup.object().shape({
-  name: Yup.string().required("Nama wajib diisi"),
-  email: Yup.string().email("Email tidak valid").required("Email wajib diisi"),
-  password: Yup.string()
-    .min(8, "Password minimal 8 karakter")
-    .required("Password wajib diisi"),
-});
-
-function FormSignUp({ onSubmit }) {
+function FormSignUp() {
   return (
     <>
-      {/* judul */}
-      <div className="text-center mb-6">
-        <h2 className="text-xl font-bold text-gray-01">Create an Account</h2>
-      </div>
-
       {/* form start */}
-      <div className="mt-4">
-        <Formik
-          initialValues={{ name: "", email: "", password: "" }}
-          validationSchema={SignUpSchema}
-          onSubmit={async (values, { setSubmitting }) => {
-            try {
-              await onSubmit(values.name, values.email, values.password);
-            } finally {
-              setSubmitting(false);
-            }
-          }}
-        >
-          {({ isSubmitting }) => (
-            <Form>
-              {/* NAME */}
-              <div className="mb-6">
-                <Field name="name">
-                  {({ field }) => (
-                    <LabeledInput
-                      {...field}
-                      id="name"
-                      type="text"
-                      label="Name"
-                      placeholder="Tanzir Rahman"
-                    />
-                  )}
-                </Field>
-                <ErrorMessage
-                  name="name"
-                  component="p"
-                  className="text-red-500 text-xs mt-1"
-                />
-              </div>
+      <div className="mt-16">
+        <form action="">
+          <div className="mb-6">
+            <LabeledInput
+              label="Name"
+              id="name"
+              type="text"
+              placeholder="Kholifah Rana Almadina"
+              name="name"
+            />
+          </div>
+          <div className="mb-6">
+            <LabeledInput
+              label="Email Address"
+              id="email"
+              type="email"
+              placeholder="hello@example.com"
+              name="email"
+            />
+          </div>
+          <div className="mb-6">
+            <LabeledInput
+              label="Password"
+              id="password"
+              type="password"
+              placeholder="********"
+              name="password"
+            />
+          </div>
 
-              {/* EMAIL */}
-              <div className="mb-6">
-                <Field name="email">
-                  {({ field }) => (
-                    <LabeledInput
-                      {...field}
-                      id="email"
-                      type="email"
-                      label="Email Address"
-                      placeholder="hello@example.com"
-                    />
-                  )}
-                </Field>
-                <ErrorMessage
-                  name="email"
-                  component="p"
-                  className="text-red-500 text-xs mt-1"
-                />
-              </div>
+          <p className="text-xs text-gray-500 mb-4">
+            By continuing, you agree to our{" "}
+            <a href="#" className="text-[#2B9B8A] hover:underline">
+              terms of service
+            </a>
+            .
+          </p>
 
-              {/* PASSWORD */}
-              <div className="mb-4">
-                <Field name="password">
-                  {({ field }) => (
-                    <LabeledInput
-                      {...field}
-                      id="password"
-                      type="password"
-                      label="Password"
-                      placeholder="●●●●●●●●●●●●●●"
-                    />
-                  )}
-                </Field>
-                <ErrorMessage
-                  name="password"
-                  component="p"
-                  className="text-red-500 text-xs mt-1"
-                />
-              </div>
-
-              {/* terms */}
-              <div className="mb-5 text-xs text-center text-gray-03">
-                By continuing, you to agree to our{" "}
-                <a href="#" className="text-primary">
-                  terms of service.
-                </a>
-              </div>
-
-              <Button>{isSubmitting ? "Loading..." : "Sign Up"}</Button>
-            </Form>
-          )}
-        </Formik>
+          <Button type="submit">Sign up</Button>
+        </form>
       </div>
       {/* form end */}
 
-      {/* teks start */}
+      {/* divider start */}
       <div className="my-9 px-7 flex flex-col justify-center items-center text-xs text-gray-03">
         <div className="border border-gray-05 w-full"></div>
         <div className="px-2 bg-special-mainBg absolute">or sign up with</div>
       </div>
-      {/* teks end */}
+      {/* divider end */}
 
-      {/* sign up with google start */}
+      {/* google button start */}
       <div className="mb-8">
         <Button type="button" variant="secondary">
           <span className="flex items-center justify-center">
             <svg
               className="h-6 w-6 mr-2"
               xmlns="http://www.w3.org/2000/svg"
+              width="800"
+              height="800"
               viewBox="-0.5 0 48 48"
             >
               <path d="M9.82727273,24 C9.82727273,22.4757333 10.0804318,21.0144 10.5322727,19.6437333 L2.62345455,13.6042667 C1.08206818,16.7338667 0.213636364,20.2602667 0.213636364,24 C0.213636364,27.7365333 1.081,31.2608 2.62025,34.3882667 L10.5247955,28.3370667 C10.0772273,26.9728 9.82727273,25.5168 9.82727273,24" fill="#FBBC05" />
@@ -136,16 +77,18 @@ function FormSignUp({ onSubmit }) {
           </span>
         </Button>
       </div>
-      {/* sign up with google end */}
+      {/* google button end */}
 
-      {/* link start */}
-      <div className="flex justify-center text-sm text-gray-03">
-        Already have an account?&nbsp;
-        <Link to="/login" className="text-primary font-bold">
-          Sign In Here
-        </Link>
-      </div>
-      {/* link end */}
+        {/* footer link start */}
+        <div className="flex justify-center mt-4">
+        <p className="text-sm text-gray-500">
+            Already have an account?{" "}
+            <Link to="/login" className="text-[#2B9B8A] font-bold hover:underline">
+              Sign in Here
+            </Link>
+        </p>
+        </div>
+        {/* footer link end */}
     </>
   );
 }

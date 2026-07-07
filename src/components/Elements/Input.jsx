@@ -12,8 +12,8 @@ function Input(props) {
   return (
     <>
       <input
-        className={`py-3 pl-4 text-sm rounded-md w-full border text-gray-01
-          ${border} focus:border-black focus:outline-none focus:ring-0
+        className={`py-3 pl-4 text-sm rounded-md w-full border text-gray-01 
+          ${border} focus:border-black focus:outline-none focus:ring-0 
           ${backgroundColor || ""}
         `}
         id={id}

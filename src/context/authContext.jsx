@@ -1,24 +1,43 @@
 import { createContext, useState } from "react";
+import { jwtDecode } from "jwt-decode";
 
 export const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(
-    !!localStorage.getItem("token")
-  );
+  const [user, setUser] = useState(() => {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      try {
+        return jwtDecode(token);
+      } catch (err) {
+        console.error("Invalid token", err);
+        localStorage.removeItem("token");
+        return null;
+      }
+    }
+
+    return null;
+  });
 
   const login = (token) => {
-    localStorage.setItem("token", token);
-    setIsAuthenticated(true);
-  };
+    try {
+      const decoded = jwtDecode(token);
 
+      setUser(decoded);
+      localStorage.setItem("token", token);
+    } catch (err) {
+      console.error("Invalid token");
+    }
+  };
+  
   const logout = () => {
+    setUser(null);
     localStorage.removeItem("token");
-    setIsAuthenticated(false);
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

@@ -1,19 +1,36 @@
-import React, { useContext } from "react";
-import Logo from "../Elements/Logo";
-import { ThemeContext } from "../../context/themeContext";
+import axios from "axios";
 
-function AuthLayout(props) {
-  const { children } = props;
-  const { theme } = useContext(ThemeContext);
+const API_URL = "https://jwt-auth-eight-neon.vercel.app"; // URL backend
 
-  return (
-    <main className={`min-h-screen bg-special-mainBg flex justify-center items-center font-poppins ${theme.name}`}>
-      <div className="bg-special-mainBg w-full max-w-sm px-8 py-10">
-        <Logo />
-        {children}
-      </div>
-    </main>
-  );
-}
+export const loginService = async (email, password) => {
+  try {
+    const response = await axios.post(
+      `${API_URL}/login`,
+      { email, password }, 
+    );
 
-export default AuthLayout;
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || { msg: "Login gagal" };
+  }
+};
+
+export const logoutService = async () => {
+  try {
+    const token = localStorage.getItem("token");
+
+    await axios.post(`${API_URL}/logout`, 
+     {},
+	   {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      }, 
+     }
+    );
+  } catch (error) {
+    throw {
+      status: error.response?.status,
+      msg: error.response?.data?.msg,
+    };
+  }
+};

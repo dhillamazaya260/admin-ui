@@ -8,12 +8,19 @@ import { ThemeContext } from "../../context/themeContext";
 
 export default function DotsMobileStepper(props) {
   const { data } = props;
+
   const { theme: themeMode } = React.useContext(ThemeContext);
+
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
 
-  const handleNext = () => setActiveStep((prev) => prev + 1);
-  const handleBack = () => setActiveStep((prev) => prev - 1);
+  const handleNext = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  };
+
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
 
   return (
     <>
@@ -26,8 +33,12 @@ export default function DotsMobileStepper(props) {
         sx={{
           maxWidth: "400",
           flexGrow: 1,
-          "& .MuiMobileStepper-dot": { backgroundColor: "darkgray" },
-          "& .MuiMobileStepper-dotActive": { backgroundColor: themeMode.color },
+          "& .MuiMobileStepper-dot": {
+            backgroundColor: "darkgray",
+          },
+          "& .MuiMobileStepper-dotActive": {
+            backgroundColor: themeMode.color,
+          },
         }}
         nextButton={
           <Button
@@ -37,12 +48,25 @@ export default function DotsMobileStepper(props) {
             sx={{ color: "black" }}
           >
             Next
-            {theme.direction === "rtl" ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
+            {theme.direction === "rtl" ? (
+              <KeyboardArrowLeft />
+            ) : (
+              <KeyboardArrowRight />
+            )}
           </Button>
         }
         backButton={
-          <Button size="small" onClick={handleBack} disabled={activeStep === 0} sx={{ color: "black" }}>
-            {theme.direction === "rtl" ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
+          <Button
+            size="small"
+            onClick={handleBack}
+            disabled={activeStep === 0}
+            sx={{ color: "black" }}
+          >
+            {theme.direction === "rtl" ? (
+              <KeyboardArrowRight />
+            ) : (
+              <KeyboardArrowLeft />
+            )}
             Back
           </Button>
         }
