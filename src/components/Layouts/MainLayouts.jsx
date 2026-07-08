@@ -1,15 +1,21 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Logo from "../Elements/Logo";
 import Input from "../Elements/Input";
+import DarkModeToggle from "../Elements/DarkModeToggle";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import Icon from "../Elements/Icon";
 import { NavLink } from "react-router-dom";
 import { ThemeContext } from "../../context/themeContext";
 import { AuthContext } from "../../context/authContext";
+import { DarkModeContext } from "../../context/darkModeContext";
 import { logoutService } from "../../services/authService";
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
 
 function MainLayout(props) {
   const { children } = props;
+
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   const themes = [
     { name: "theme-green", bgcolor: "bg-[#299D91]", color: "#299D91" },
@@ -20,6 +26,7 @@ function MainLayout(props) {
   ];
 
   const { theme, setTheme } = useContext(ThemeContext);
+  const { isDarkMode } = useContext(DarkModeContext);
 
   const menu = [
     { id: 1, name: "Overview", icon: <Icon.Overview />, link: "/" },
@@ -38,15 +45,18 @@ function MainLayout(props) {
 
   const { user, logout } = useContext(AuthContext);
 
- 	const handleLogout = async () => {
+  const handleLogout = async () => {
+    setIsLoggingOut(true);
     try {
       await logoutService();
-      logout(); 
+      logout();
     } catch (err) {
       console.error(err);
       if (err.status === 401) {
         logout();
       }
+    } finally {
+      setIsLoggingOut(false);
     }
   };
 
@@ -111,8 +121,15 @@ function MainLayout(props) {
             </div>
           </div>
         </aside>
-        <div className="bg-special-mainBg flex-1 flex flex-col">
-          <div className="border border-b border-gray-05 px-6 py-4 flex justify-between items-center">
+        <div
+          className={`flex-1 flex flex-col ${
+            isDarkMode ? "bg-defaultBlack text-white" : "bg-special-mainBg"
+          }`}
+        >
+          <div
+            className={`border border-b px-6 py-4 flex justify-between items-center
+              ${isDarkMode ? "border-special-bg3" : "border-gray-05"}`}
+          >
             <div className="flex items-center">
               <div className="font-bold text-2xl me-6">{user.name}</div>
               <div className="text-gray-03 flex">
@@ -124,12 +141,31 @@ function MainLayout(props) {
               <div className="me-10">
                 <NotificationsIcon className="text-primary scale-110" />
               </div>
-              <Input backgroundColor="bg-white" border="border-white" />
+              <Input
+                backgroundColor={isDarkMode ? "" : "bg-white"}
+                border={isDarkMode ? "border-special-bg3" : "border-white"}
+              />
             </div>
           </div>
+
+          {/* toggle dark/light mode, diletakkan di bawah navbar */}
+          <div className="px-6 pt-4 flex justify-end">
+            <DarkModeToggle />
+          </div>
+
           <div className="flex-1 px-6 py-4">{children}</div>
         </div>
       </div>
+
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (t) => t.zIndex.drawer + 1 }}
+        open={isLoggingOut}
+      >
+        <div className="flex flex-col items-center">
+          <CircularProgress color="inherit" />
+          <span className="mt-3">Logging Out</span>
+        </div>
+      </Backdrop>
     </>
   );
 }

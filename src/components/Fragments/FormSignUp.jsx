@@ -2,51 +2,112 @@ import React from "react";
 import LabeledInput from "../Elements/LabeledInput";
 import Button from "../Elements/Button";
 import { Link } from "react-router-dom";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
 
-function FormSignUp() {
+const SignUpSchema = Yup.object().shape({
+  name: Yup.string().required("Nama wajib diisi"),
+  email: Yup.string().email("Email tidak valid").required("Email wajib diisi"),
+  password: Yup.string()
+    .min(6, "Password minimal 6 karakter")
+    .required("Password wajib diisi"),
+});
+
+function FormSignUp({ onSubmit }) {
   return (
     <>
       {/* form start */}
       <div className="mt-16">
-        <form action="">
-          <div className="mb-6">
-            <LabeledInput
-              label="Name"
-              id="name"
-              type="text"
-              placeholder="Kholifah Rana Almadina"
-              name="name"
-            />
-          </div>
-          <div className="mb-6">
-            <LabeledInput
-              label="Email Address"
-              id="email"
-              type="email"
-              placeholder="hello@example.com"
-              name="email"
-            />
-          </div>
-          <div className="mb-6">
-            <LabeledInput
-              label="Password"
-              id="password"
-              type="password"
-              placeholder="********"
-              name="password"
-            />
-          </div>
+        <Formik
+          initialValues={{
+            name: "",
+            email: "",
+            password: "",
+          }}
+          validationSchema={SignUpSchema}
+          onSubmit={async (values, { setSubmitting }) => {
+            try {
+              await onSubmit(values.name, values.email, values.password);
+            } finally {
+              setSubmitting(false);
+            }
+          }}
+        >
+          {({ isSubmitting }) => (
+            <Form>
+              {/* NAME */}
+              <div className="mb-6">
+                <Field name="name">
+                  {({ field }) => (
+                    <LabeledInput
+                      {...field}
+                      id="name"
+                      type="text"
+                      label="Name"
+                      placeholder="Tanzir Rahman"
+                    />
+                  )}
+                </Field>
+                <ErrorMessage
+                  name="name"
+                  component="p"
+                  className="text-red-500 text-xs mt-1"
+                />
+              </div>
 
-          <p className="text-xs text-gray-500 mb-4">
-            By continuing, you agree to our{" "}
-            <a href="#" className="text-[#2B9B8A] hover:underline">
-              terms of service
-            </a>
-            .
-          </p>
+              {/* EMAIL */}
+              <div className="mb-6">
+                <Field name="email">
+                  {({ field }) => (
+                    <LabeledInput
+                      {...field}
+                      id="email"
+                      type="email"
+                      label="Email Address"
+                      placeholder="hello@example.com"
+                    />
+                  )}
+                </Field>
+                <ErrorMessage
+                  name="email"
+                  component="p"
+                  className="text-red-500 text-xs mt-1"
+                />
+              </div>
 
-          <Button type="submit">Sign up</Button>
-        </form>
+              {/* PASSWORD */}
+              <div className="mb-6">
+                <Field name="password">
+                  {({ field }) => (
+                    <LabeledInput
+                      {...field}
+                      id="password"
+                      type="password"
+                      label="Password"
+                      placeholder="●●●●●●●●●●●●●●"
+                    />
+                  )}
+                </Field>
+                <ErrorMessage
+                  name="password"
+                  component="p"
+                  className="text-red-500 text-xs mt-1"
+                />
+              </div>
+
+              <p className="text-xs text-gray-500 mb-4">
+                By continuing, you agree to our{" "}
+                <a href="#" className="text-[#2B9B8A] hover:underline">
+                  terms of service
+                </a>
+                .
+              </p>
+
+              {/* BUTTON */}
+              <Button>{isSubmitting ? "Loading..." : "Register"}</Button>
+            </Form>
+          )}
+        </Formik>
       </div>
       {/* form end */}
 
@@ -79,16 +140,16 @@ function FormSignUp() {
       </div>
       {/* google button end */}
 
-        {/* footer link start */}
-        <div className="flex justify-center mt-4">
+      {/* footer link start */}
+      <div className="flex justify-center mt-4">
         <p className="text-sm text-gray-500">
-            Already have an account?{" "}
-            <Link to="/login" className="text-[#2B9B8A] font-bold hover:underline">
-              Sign in Here
-            </Link>
+          Already have an account?{" "}
+          <Link to="/login" className="text-[#2B9B8A] font-bold hover:underline">
+            Sign in Here
+          </Link>
         </p>
-        </div>
-        {/* footer link end */}
+      </div>
+      {/* footer link end */}
     </>
   );
 }

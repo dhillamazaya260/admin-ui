@@ -1,8 +1,9 @@
 import React from "react";
 import Card from "../Elements/Card";
+import CircularProgress from "@mui/material/CircularProgress";
 
 function CardUpcomingBill(props) {
-  const { data } = props;
+  const { data = [], isLoading = false } = props;
 
   return (
     <>
@@ -10,29 +11,42 @@ function CardUpcomingBill(props) {
         title="Upcoming Bill"
         link="/bill"
         desc={
-          <div className="flex flex-col justify-around h-full">
-			{data.map((item) => (
-            <div key={item.id} className="flex justify-between pt-3 pb-3">
-                <div className="flex">
+          isLoading ? (
+            <div className="flex flex-col justify-center items-center h-full text-primary">
+              <CircularProgress color="inherit" size={40} />
+              <span className="mt-2 text-sm">Loading Data</span>
+            </div>
+          ) : data.length === 0 ? (
+            <div className="flex flex-col justify-center items-center h-full text-gray-03 text-sm">
+              Tidak ada tagihan mendatang
+            </div>
+          ) : (
+            <div className="flex flex-col justify-around h-full">
+              {data.map((item) => (
+                <div key={item.id} className="flex justify-between pt-3 pb-3">
+                  <div className="flex">
                     <div className="bg-special-bg p-4 rounded-lg flex flex-col">
-                    <span className="text-xs">{item.month}</span>
-                    <span className="text-2xl font-bold">{item.date}</span>
+                      <span className="text-xs">{item.month}</span>
+                      <span className="text-2xl font-bold">{item.date}</span>
                     </div>
                     <div className="ms-10">
-                    {item.icon}
-                    <span className="font-bold">{item.name}</span>
-                    <br />
-                    <span className="text-xs">Last Charge - {item.lastCharge}</span>
+                      {item.icon}
+                      <span className="font-bold">{item.name}</span>
+                      <br />
+                      <span className="text-xs">
+                        Last Charge - {item.lastCharge}
+                      </span>
                     </div>
-                </div>
-                <div className="flex items-center">
+                  </div>
+                  <div className="flex items-center">
                     <span className="py-2 px-4 border border-gray-05 rounded-lg font-bold">
-                    ${item.amount}
+                      ${item.amount}
                     </span>
+                  </div>
                 </div>
+              ))}
             </div>
-            ))}
-        </div>
+          )
         }
       />
     </>
