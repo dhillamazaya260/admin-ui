@@ -102,7 +102,7 @@ function MainLayout(props) {
             <div className="flex justify-between items-center">
               <div>Avatar</div>
               <div className="hidden sm:block">
-                <div>{user?.name}</div>
+                <div>{user.name}</div>
                 <div>View Profile</div>
               </div>
               <div className="hidden sm:block">
@@ -114,7 +114,7 @@ function MainLayout(props) {
         <div className="bg-special-mainBg flex-1 flex flex-col">
           <div className="border border-b border-gray-05 px-6 py-4 flex justify-between items-center">
             <div className="flex items-center">
-              <div className="font-bold text-2xl me-6">{user?.name}</div>
+              <div className="font-bold text-2xl me-6">{user.name}</div>
               <div className="text-gray-03 flex">
                 <Icon.ChevronRight size={20} />
                 <span>May 19, 2023</span>

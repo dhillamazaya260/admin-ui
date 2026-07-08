@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import AuthLayout from "../components/Layouts/authLayout";
+import AuthLayout from "../components/Layouts/AuthLayout";
 import FormSignIn from "../components/Fragments/FormSignIn";
 import { loginService } from "../services/authService";
 import { AuthContext } from "../context/authContext";
