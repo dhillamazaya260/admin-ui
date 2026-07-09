@@ -1,5 +1,7 @@
 import React, { useContext } from "react";
 import { DarkModeContext } from "../../context/darkModeContext";
+import LightModeRoundedIcon from "@mui/icons-material/LightModeRounded";
+import DarkModeRoundedIcon from "@mui/icons-material/DarkModeRounded";
 
 function DarkModeToggle() {
   const { isDarkMode, toggleDarkMode } = useContext(DarkModeContext);
@@ -9,11 +11,24 @@ function DarkModeToggle() {
       type="button"
       onClick={toggleDarkMode}
       aria-label="Toggle dark mode"
-      className={`w-14 h-8 rounded-full flex items-center px-1 cursor-pointer transition-colors
-        ${isDarkMode ? "bg-primary justify-end" : "bg-gray-05 justify-start"}`}
+      aria-pressed={isDarkMode}
+      className={`relative w-16 h-9 rounded-full flex items-center px-1 cursor-pointer
+        transition-colors duration-300 border
+        ${isDarkMode
+          ? "bg-defaultBlack border-special-bg3"
+          : "bg-special-bg border-gray-05"}`}
     >
-      <span className="w-6 h-6 rounded-full bg-white flex items-center justify-center text-xs">
-        {isDarkMode ? "🌙" : "☀️"}
+      {/* thumb bulat yang geser kiri/kanan */}
+      <span
+        className={`absolute top-1 left-1 w-7 h-7 rounded-full flex items-center justify-center
+          bg-white shadow-md transition-transform duration-300
+          ${isDarkMode ? "translate-x-7" : "translate-x-0"}`}
+      >
+        {isDarkMode ? (
+          <DarkModeRoundedIcon sx={{ fontSize: 18 }} className="text-primary" />
+        ) : (
+          <LightModeRoundedIcon sx={{ fontSize: 18 }} className="text-yellow-500" />
+        )}
       </span>
     </button>
   );
