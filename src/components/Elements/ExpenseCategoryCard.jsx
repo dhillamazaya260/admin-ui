@@ -33,13 +33,15 @@ function ExpenseCategoryCard(props) {
             <div className="font-bold text-lg">${amount}</div>
           </div>
         </div>
-        <div className={`flex items-center text-xs ${trendColor}`}>
-          {percentage}%
-          <ArrowIcon size={14} />
+        <div className="flex flex-col items-end">
+          <div className={`flex items-center text-xs ${trendColor}`}>
+            {percentage}%
+            <ArrowIcon size={14} />
+          </div>
+          <div className={`text-xs ${isDarkMode ? "text-gray-05" : "text-gray-03"}`}>
+            Compare to the last month
+          </div>
         </div>
-      </div>
-      <div className={`text-xs mb-2 ${isDarkMode ? "text-gray-05" : "text-gray-03"}`}>
-        Compare to the last month
       </div>
 
       <div className={`border-t ${isDarkMode ? "border-special-bg" : "border-gray-05"}`}>

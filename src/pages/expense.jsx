@@ -25,10 +25,10 @@ const normalizeExpenses = (raw = []) => {
     const amount = item.amount ?? item.total ?? 0;
     const percentage = item.percentage ?? item.percent ?? 0;
     const trend = item.trend || item.direction || (percentage < 0 ? "down" : "up");
-    const items = (item.items || item.details || item.transactions || []).map(
+    const items = (item.detail || item.items || item.details || item.transactions || []).map(
       (sub, subIdx) => ({
         id: sub.id || subIdx,
-        name: sub.name || sub.title || sub.transactionName || "-",
+        name: sub.item || sub.name || sub.title || sub.transactionName || "-",
         amount: sub.amount ?? 0,
         date: sub.date || sub.createdAt || "",
       })
