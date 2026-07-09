@@ -1,0 +1,5 @@
+{
+  "email": "111202315299@mhs.dinus.ac.id",
+  "password": "123456",
+  "comment": "Ganti email & password di atas dengan akun mahasiswa yang sudah kamu daftarkan lewat /register (SOAL 2 & 3), supaya cy.login() bisa benar-benar berhasil login ke backend."
+}
